@@ -1,0 +1,1 @@
+from .reduce_dimensions import GenerateEmbeddings

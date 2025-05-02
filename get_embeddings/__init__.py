@@ -1,0 +1,1 @@
+from .get_embeddings import GenerateEmbeddings
