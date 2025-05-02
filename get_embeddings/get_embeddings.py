@@ -7,7 +7,7 @@ class GenerateEmbeddings:
     def __init__(self,
                 dataset,
                 columns,
-                model_url = 'https://tfhub.dev/google/universal-sentence-encoder-multilingual/3'):
+                model_url = 'https://tfhub.dev/google/universal-sentence-encoder/4'):
         
         self.model_url = model_url
         self.dataset = dataset
