@@ -25,7 +25,3 @@ class GenerateEmbeddings:
         for column in self.columns:
             generated_embeddings[r'embeddings_{}'.format(column)] = self.model(self.dataset[column]) 
         return generated_embeddings
-
-
-
-

@@ -1,1 +1,1 @@
-from .get_embeddings import GenerateEmbeddings
+from .get_embeddings import *
