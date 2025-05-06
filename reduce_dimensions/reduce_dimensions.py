@@ -5,9 +5,10 @@ import pandas as pd
 
 
 class UmapReduction:
-    def __init__(self, columns, dataset, n_neighbors = 15, n_components = 2, metric = 'cosine'):
+    def __init__(self, column, column_index, dataset, n_neighbors = 15, n_components = 2, metric = 'cosine'):
        self.dataset = dataset
-       self.columns = columns
+       self.column = column
+       self.column_index = column_index
        self.n_neighbors = n_neighbors
        self.n_components = n_components
        self.metric = metric
@@ -20,22 +21,21 @@ class UmapReduction:
             metric = self.metric
         )
         return model
-
-    def unbatch_data(self):
-        unbatched_data = {}
-        for column_name in self.columns:
-            unbatched_data[column_name] = []
-            for batch in self.dataset:
-                unbatched_data[column_name].append(batch[column_name].numpy())
-         
-        for column in self.columns:
-            unbatched_data[column] = np.concatenate(unbatched_data[column], axis = 0)
-
-        return  unbatched_data
     
     def reduce_dimensions(self):
-        flat_data = self.unbatch_data()
-        reduced_dimensions = {}
-        for column_name in flat_data.items():
-            reduced_dimensions[column_name] = self.model.fit_transform(flat_data[column_name])
-        return reduced_dimensions
+        if self.column not in self.dataset or self.column_index not in self.dataset:
+            raise KeyError(f"Columnas '{self.column}' o '{self.column_index}' no encontradas en el dataset.")
+
+        if isinstance(self.dataset, pd.DataFrame):
+            vectors = self.dataset[self.column].tolist()
+            indexes = self.dataset[self.column_index].astype(str).tolist()
+        elif isinstance(self.dataset, dict):
+            vectors = [str(t) for t in self.dataset[self.column]]
+            indexes = [str(i) for i in self.dataset[self.column_index]]
+
+        reduced_dimensions = self.model_umap.fit_transform(vectors)
+
+        return pd.DataFrame({
+            'id': indexes,
+            'dimensions' : list(reduced_dimensions)
+        })

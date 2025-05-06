@@ -1,1 +1,1 @@
-from .reduce_dimensions import GenerateEmbeddings
+from .reduce_dimensions import UmapReduction
