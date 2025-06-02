@@ -1,5 +1,5 @@
 import streamlit as st
-from topic_modeler import TopicModeler  # o importa tus funciones desde donde estén
+from pipeline_class.py import TopicModeler  # o importa tus funciones desde donde estén
 from priority_model import predict_priority  # suponiendo que tengas un modelo de prioridad aparte
 
 # Cargar modelos
