@@ -1,0 +1,5 @@
+streamlit
+scikit-learn
+pandas
+bertopic
+# agrega aquí cualquier otra librería que uses
